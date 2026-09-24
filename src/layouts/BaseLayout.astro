@@ -1,0 +1,32 @@
+---
+import '../styles/global.css';
+
+interface Props { title: string; description?: string }
+const { title, description = 'DISC01, site personnel consacré au jeu vidéo.' } = Astro.props;
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+const path = (segment: string) => `${base}${segment}`;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} | DISC01</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href={base}>DISC01</a>
+        <nav class="site-nav" aria-label="Navigation principale">
+          <a href={base}>Accueil</a>
+          <a href={path('blog/')}>Blog</a>
+          <a href={path('jeux/')}>Jeux</a>
+          <a href={path('a-propos/')}>À propos</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container"><slot /></main>
+    <footer class="site-footer"><div class="container">DISC01 · Site personnel autour du jeu vidéo</div></footer>
+  </body>
+</html>

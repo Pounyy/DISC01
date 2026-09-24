@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: Pounyy/DISC01
+  branch: main
+  auth_methods: [token]
+
+media_folder: /public/media
+public_folder: /DISC01/media
+
+output:
+  omit_empty_optional_fields: true
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Article
+    folder: /src/content/blog
+    create: true
+    slug: '{{fields._slug}}'
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title, label: Titre, widget: string }
+      - { name: date, label: Date, widget: datetime, type: date }
+      - { name: description, label: Description, widget: text }
+      - { name: image, label: Image principale, widget: image, required: false }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: draft, label: Brouillon, widget: boolean, default: true }
+      - { name: body, label: Contenu, widget: richtext }
+
+  - name: jeux
+    label: Jeux
+    label_singular: Fiche de jeu
+    folder: /src/content/jeux
+    create: true
+    slug: '{{fields._slug}}'
+    extension: md
+    format: frontmatter
+    identifier_field: name
+    fields:
+      - { name: name, label: Nom du jeu, widget: string }
+      - { name: image, label: Image, widget: image, required: false }
+      - { name: description, label: Description, widget: text }
+      - { name: developer, label: Développeur, widget: string }
+      - { name: publisher, label: Éditeur, widget: string }
+      - { name: releaseDate, label: Date de sortie, widget: datetime, type: date }
+      - { name: platforms, label: Plateformes, widget: list, required: false }
+      - { name: genres, label: Genres, widget: list, required: false }
+      - { name: personalRating, label: Note personnelle sur 10, widget: number, value_type: float, min: 0, max: 10, required: false }
+      - { name: body, label: Contenu, widget: richtext }

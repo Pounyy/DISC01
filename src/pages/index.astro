@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+<BaseLayout title="Accueil">
+  <h1>DISC01</h1>
+  <p class="intro">Un espace personnel pour partager des découvertes, des critiques et des recommandations autour du jeu vidéo.</p>
+  <div class="grid">
+    <section class="notice"><h2>Blog</h2><p>Articles et réflexions à venir.</p><a href={`${base}blog/`}>Voir le blog</a></section>
+    <section class="notice"><h2>Jeux</h2><p>Fiches et avis personnels à venir.</p><a href={`${base}jeux/`}>Voir les jeux</a></section>
+    <section class="notice"><h2>Streams</h2><p>Les liens et informations sur les streams arriveront ici.</p></section>
+  </div>
+</BaseLayout>

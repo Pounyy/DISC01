@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EntryCard from '../../components/EntryCard.astro';
+
+const games = (await getCollection('jeux')).sort((a, b) => a.data.name.localeCompare(b.data.name, 'fr'));
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+---
+<BaseLayout title="Jeux">
+  <h1>Jeux</h1>
+  {games.length === 0 ? <p>Aucune fiche de jeu pour le moment.</p> :
+    <div class="grid">{games.map((game) =>
+      <EntryCard title={game.data.name} description={game.data.description} image={game.data.image} href={`${base}jeux/${game.id}/`} />
+    )}</div>}
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export const getStaticPaths = (async () => {
+  const games = await getCollection('jeux');
+  return games.map((game) => ({ params: { slug: game.id }, props: { game } }));
+}) satisfies GetStaticPaths;
+
+const { game } = Astro.props;
+const { Content } = await render(game);
+---
+<BaseLayout title={game.data.name} description={game.data.description}>
+  <article>
+    <h1>{game.data.name}</h1>
+    <p>{game.data.description}</p>
+    {game.data.image && <img class="cover" src={game.data.image} alt="" />}
+    <dl>
+      <dt>Développeur</dt><dd>{game.data.developer}</dd>
+      <dt>Éditeur</dt><dd>{game.data.publisher}</dd>
+      <dt>Sortie</dt><dd>{game.data.releaseDate.toLocaleDateString('fr-FR')}</dd>
+      <dt>Plateformes</dt><dd>{game.data.platforms.join(', ') || 'Non renseignées'}</dd>
+      <dt>Genres</dt><dd>{game.data.genres.join(', ') || 'Non renseignés'}</dd>
+      {game.data.personalRating !== undefined && <><dt>Note personnelle</dt><dd>{game.data.personalRating}/10</dd></>}
+    </dl>
+    <div class="prose"><Content /></div>
+  </article>
+</BaseLayout>
