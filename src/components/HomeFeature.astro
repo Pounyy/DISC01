@@ -1,0 +1,27 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  description: string;
+  href: string;
+  visual: 'blog' | 'jeux' | 'a-propos';
+}
+
+const { number, title, description, href, visual } = Astro.props;
+---
+<a class={`home-feature home-feature--${visual}`} href={href} aria-label={`${title} — ${description}`}>
+  <div class={`home-feature__visual visual--${visual}`} aria-hidden="true">
+    <span class="visual__index">DISC / {number}</span>
+    {visual === 'blog' && <><span class="visual__orbit"></span><span class="visual__column"></span><span class="visual__caption">NOTES / OBSERVATIONS</span></>}
+    {visual === 'jeux' && <><span class="visual__rings"></span><span class="visual__bar"></span><span class="visual__caption">ARCHIVES / SÉLECTION</span></>}
+    {visual === 'a-propos' && <><span class="visual__monogram">D<span>01</span></span><span class="visual__caption">LE POINT DE DÉPART</span></>}
+  </div>
+  <div class="home-feature__text">
+    <div>
+      <span class="home-feature__number">{number} / 03</span>
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+    <span class="home-feature__arrow" aria-hidden="true">↗</span>
+  </div>
+</a>

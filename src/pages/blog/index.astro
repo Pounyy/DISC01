@@ -1,16 +1,54 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import EntryCard from '../../components/EntryCard.astro';
+import BlogArticlePreview from '../../components/BlogArticlePreview.astro';
+import '../../styles/home.css';
+import '../../styles/blog.css';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+const withBase = (path: string) => path.startsWith('/') ? `${base}${path.slice(1)}` : path;
 ---
-<BaseLayout title="Blog">
-  <h1>Blog</h1>
-  {posts.length === 0 ? <p>Aucun article publié pour le moment.</p> :
-    <div class="grid">{posts.map((post) =>
-      <EntryCard title={post.data.title} description={post.data.description} image={post.data.image} href={`${base}blog/${post.id}/`} />
-    )}</div>}
+<BaseLayout
+  title="Blog"
+  description="Critiques, découvertes, réflexions et autres choses qui méritaient quelques lignes."
+  editorial
+  activePage="blog"
+>
+  <header class="blog-heading">
+    <div class="blog-heading__meta"><span>CHRONIQUES / NOTES</span><span>DISC / 01</span></div>
+    <div class="blog-heading__body">
+      <h1>BLOG<span>.</span></h1>
+      <p>Critiques, découvertes, réflexions et autres choses qui méritaient quelques lignes.</p>
+    </div>
+  </header>
+
+  <section class="blog-index" aria-labelledby="articles-title">
+    <div class="blog-index__heading">
+      <div><span aria-hidden="true"></span><h2 id="articles-title">Derniers articles</h2></div>
+      <span>{String(posts.length).padStart(2, '0')} / PUBLICATION{posts.length > 1 ? 'S' : ''}</span>
+    </div>
+
+    {posts.length === 0 ? (
+      <div class="blog-empty">
+        <p>Les premiers articles sont en préparation.</p>
+        <span>ARCHIVES / BIENTÔT</span>
+      </div>
+    ) : (
+      <div class="blog-list">
+        {posts.map((post, index) => (
+          <BlogArticlePreview
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.date}
+            category={post.data.tags[0]}
+            image={post.data.image ? withBase(post.data.image) : undefined}
+            href={`${base}blog/${post.id}/`}
+            index={index + 1}
+          />
+        ))}
+      </div>
+    )}
+  </section>
 </BaseLayout>

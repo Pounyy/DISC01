@@ -1,8 +1,15 @@
 ---
 import '../styles/global.css';
 
-interface Props { title: string; description?: string }
-const { title, description = 'DISC01, site personnel consacré au jeu vidéo.' } = Astro.props;
+interface Props {
+  title: string;
+  description?: string;
+  home?: boolean;
+  editorial?: boolean;
+  activePage?: 'blog' | 'jeux' | 'a-propos';
+}
+const { title, description = 'DISC01, site personnel consacré au jeu vidéo.', home = false, editorial = false, activePage } = Astro.props;
+const hasEditorialShell = home || editorial;
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 const path = (segment: string) => `${base}${segment}`;
 ---
@@ -14,19 +21,27 @@ const path = (segment: string) => `${base}${segment}`;
     <meta name="description" content={description} />
     <title>{title} | DISC01</title>
   </head>
-  <body>
+  <body class:list={{ 'is-home': hasEditorialShell }}>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href={base}>DISC01</a>
+        <a class="brand" href={base} aria-label="DISC01, accueil">DISC<span>01</span></a>
         <nav class="site-nav" aria-label="Navigation principale">
-          <a href={base}>Accueil</a>
-          <a href={path('blog/')}>Blog</a>
-          <a href={path('jeux/')}>Jeux</a>
-          <a href={path('a-propos/')}>À propos</a>
+          <a href={base} aria-current={home ? 'page' : undefined}>{hasEditorialShell ? 'HOME' : 'Accueil'}</a>
+          <a href={path('blog/')} aria-current={activePage === 'blog' ? 'page' : undefined}>{hasEditorialShell ? 'BLOG' : 'Blog'}</a>
+          <a href={path('jeux/')} aria-current={activePage === 'jeux' ? 'page' : undefined}>{hasEditorialShell ? 'JEUX' : 'Jeux'}</a>
+          <a href={path('a-propos/')} aria-current={activePage === 'a-propos' ? 'page' : undefined}>{hasEditorialShell ? 'À PROPOS' : 'À propos'}</a>
         </nav>
       </div>
     </header>
     <main class="container"><slot /></main>
-    <footer class="site-footer"><div class="container">DISC01 · Site personnel autour du jeu vidéo</div></footer>
+    <footer class="site-footer">
+      {hasEditorialShell ? (
+        <div class="container home-footer">
+          <a class="footer-brand" href={base}>DISC01</a>
+          <p>Un carnet personnel autour du jeu vidéo.</p>
+          <span>© {new Date().getFullYear()}</span>
+        </div>
+      ) : <div class="container">DISC01 · Site personnel autour du jeu vidéo</div>}
+    </footer>
   </body>
 </html>

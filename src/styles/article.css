@@ -1,0 +1,221 @@
+.article-page {
+  padding-top: 1.5rem;
+}
+
+.article-header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2.5rem;
+}
+
+.article-header__section,
+.article-header__meta,
+.article-footer a {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+
+.article-header__section {
+  margin: 0;
+  color: var(--accent);
+}
+
+.article-header h1 {
+  max-width: 65rem;
+  margin: 4rem 0 3rem;
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 9vw, 8.5rem);
+  font-weight: 800;
+  line-height: .92;
+  letter-spacing: -.05em;
+  overflow-wrap: anywhere;
+}
+
+.article-header__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: #575b54;
+}
+
+.article-header__meta time { color: var(--ink); }
+
+.article-cover {
+  margin: 2rem 0 0;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2rem;
+}
+
+.article-cover img {
+  display: block;
+  width: 100%;
+  max-height: 46rem;
+  object-fit: cover;
+}
+
+.article-prose {
+  width: min(100%, 60.72rem);
+  margin-inline: auto;
+  padding-block: 5rem 6rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.493rem;
+  line-height: 1.7;
+}
+
+.article-prose > :first-child { margin-top: 0; }
+.article-prose > :last-child { margin-bottom: 0; }
+
+.article-prose p,
+.article-prose ul,
+.article-prose ol,
+.article-prose blockquote {
+  margin-block: 0 1.65em;
+}
+
+.article-prose h2,
+.article-prose h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.article-prose h2 {
+  position: relative;
+  margin: 2.3em 0 .7em;
+  font-size: clamp(2.55rem, 5.4vw, 3.95rem);
+}
+
+.article-prose h2::before {
+  content: '';
+  position: absolute;
+  top: .08em;
+  bottom: .08em;
+  left: -1.25rem;
+  width: 3px;
+  background: var(--accent);
+}
+
+.article-prose h3 {
+  margin: 2em 0 .65em;
+  font-size: clamp(1.8rem, 3.3vw, 2.45rem);
+}
+
+.article-prose h2,
+.article-prose h3 {
+  margin-left: -3.125rem;
+}
+
+.article-prose ul,
+.article-prose ol {
+  padding-left: 1.5em;
+}
+
+.article-prose li { padding-left: .3em; }
+.article-prose li + li { margin-top: .5em; }
+.article-prose li::marker { color: var(--accent); }
+
+.article-prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding: .2rem 0 .2rem 1.75rem;
+  color: #40443f;
+  font-size: 1.25em;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.article-prose blockquote > :last-child { margin-bottom: 0; }
+
+.article-prose a {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2em;
+}
+
+.article-prose a:hover { color: var(--accent); }
+
+.article-prose a:focus-visible,
+.article-footer a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.article-prose img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-block: 2.5rem;
+}
+
+.article-prose hr {
+  margin-block: 3.5rem;
+  border: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.article-footer {
+  border-top: 1px solid var(--ink);
+  padding-block: 1.5rem;
+}
+
+.article-footer a {
+  display: inline-block;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .18s ease, transform .18s ease;
+}
+
+.article-footer a:hover {
+  color: var(--accent);
+  transform: translateX(-3px);
+}
+
+@media (max-width: 760px) {
+  .article-header h1 {
+    margin-block: 3rem 2.25rem;
+    font-size: clamp(3.5rem, 16vw, 6rem);
+  }
+
+  .article-cover {
+    margin-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .article-prose {
+    padding-block: 3.5rem 4.5rem;
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+
+  .article-prose h2 { font-size: clamp(2.3rem, 5vw, 3.6rem); }
+  .article-prose h3 { font-size: clamp(1.65rem, 3vw, 2.25rem); }
+  .article-prose h2,
+  .article-prose h3 { margin-left: 0; }
+  .article-prose h2::before { left: -.75rem; }
+}
+
+@media (max-width: 490px) {
+  .article-header__section,
+  .article-header__meta,
+  .article-footer a {
+    font-size: .72rem;
+  }
+
+  .article-header__meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .article-prose blockquote {
+    padding-left: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-footer a { transition: none; }
+}

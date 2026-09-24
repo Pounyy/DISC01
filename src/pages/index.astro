@@ -1,13 +1,38 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeFeature from '../components/HomeFeature.astro';
+import '../styles/home.css';
+
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
-<BaseLayout title="Accueil">
-  <h1>DISC01</h1>
-  <p class="intro">Un espace personnel pour partager des découvertes, des critiques et des recommandations autour du jeu vidéo.</p>
-  <div class="grid">
-    <section class="notice"><h2>Blog</h2><p>Articles et réflexions à venir.</p><a href={`${base}blog/`}>Voir le blog</a></section>
-    <section class="notice"><h2>Jeux</h2><p>Fiches et avis personnels à venir.</p><a href={`${base}jeux/`}>Voir les jeux</a></section>
-    <section class="notice"><h2>Streams</h2><p>Les liens et informations sur les streams arriveront ici.</p></section>
-  </div>
+<BaseLayout title="Accueil" home description="DISC01, carnet personnel de découvertes, critiques et recommandations autour du jeu vidéo.">
+  <section class="home-intro" aria-labelledby="home-title">
+    <div class="home-intro__topline"><span>INDÉPENDANT / PERSONNEL</span><span>JEU VIDÉO & CULTURE</span></div>
+    <div class="home-intro__body">
+      <h1 id="home-title">DISC<span>01</span><span class="home-intro__period">.</span></h1>
+      <div class="home-intro__copy">
+        <span class="home-intro__asterisk" aria-hidden="true">✳</span>
+        <p>Des jeux qui restent en tête. Des découvertes à partager. Un regard personnel sur ce qui se joue, et ce qui nous marque.</p>
+      </div>
+    </div>
+    <div class="home-intro__baseline"><span>CARNET DE JEU VIDÉO</span><span>FAIT POUR EXPLORER ↘</span></div>
+  </section>
+
+  <section class="home-sections" aria-labelledby="explore-title">
+    <div class="home-section-heading">
+      <div><span class="section-marker" aria-hidden="true"></span><h2 id="explore-title">Explorer DISC01</h2></div>
+      <span>INDEX / 001—003</span>
+    </div>
+    <div class="home-feature-grid">
+      <HomeFeature number="01" title="BLOG" description="Des idées, des critiques et quelques détours par le jeu vidéo." href={`${base}blog/`} visual="blog" />
+      <HomeFeature number="02" title="JEUX" description="Une sélection de jeux découverts, aimés ou simplement mémorables." href={`${base}jeux/`} visual="jeux" />
+      <HomeFeature number="03" title="À PROPOS" description="Le regard derrière DISC01, et la raison d’être de ce carnet." href={`${base}a-propos/`} visual="a-propos" />
+    </div>
+  </section>
+
+  <section class="home-live" aria-labelledby="live-title">
+    <div class="home-live__lead"><span class="live-indicator" aria-hidden="true"></span><span>EN LIVE / STREAMS</span></div>
+    <div class="home-live__body"><h2 id="live-title">On se retrouve<br /><em>en direct ?</em></h2><p>Une place pour les sessions en live, les échanges et les prochaines aventures. Les informations de la chaîne arrivent bientôt.</p></div>
+    <div class="home-live__meta"><span>CHAÎNE <strong>À VENIR</strong></span><span>PLATEFORME <strong>À DÉFINIR</strong></span><span>STATUT <strong>HORS ANTENNE</strong></span></div>
+  </section>
 </BaseLayout>

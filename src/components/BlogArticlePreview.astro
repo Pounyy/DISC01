@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  href: string;
+  image?: string;
+  category?: string;
+  index: number;
+}
+
+const { title, description, date, href, image, category, index } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('fr-FR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+}).format(date);
+---
+<article class="blog-entry">
+  <a class="blog-entry__link" href={href}>
+    <div class:list={['blog-entry__visual', { 'blog-entry__visual--placeholder': !image }]}>
+      {image ? <img src={image} alt="" loading="lazy" /> : (
+        <>
+          <span class="blog-entry__disc" aria-hidden="true">DISC<span>01</span></span>
+          <span class="blog-entry__placeholder-label">ARTICLE / {String(index).padStart(3, '0')}</span>
+        </>
+      )}
+    </div>
+    <div class="blog-entry__content">
+      <div class="blog-entry__meta">
+        <time datetime={date.toISOString()}>{formattedDate}</time>
+        {category && <span>{category}</span>}
+      </div>
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <span class="blog-entry__read" aria-hidden="true">LIRE L’ARTICLE <span>↗</span></span>
+    </div>
+  </a>
+</article>

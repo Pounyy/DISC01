@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/home.css';
+import '../../styles/article.css';
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -10,13 +12,45 @@ export const getStaticPaths = (async () => {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+const image = post.data.image
+  ? (post.data.image.startsWith('/') ? `${base}${post.data.image.slice(1)}` : post.data.image)
+  : undefined;
+const category = post.data.tags[0];
+const formattedDate = new Intl.DateTimeFormat('fr-FR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+}).format(post.data.date);
 ---
-<BaseLayout title={post.data.title} description={post.data.description}>
-  <article>
-    <h1>{post.data.title}</h1>
-    <p><time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('fr-FR')}</time></p>
-    <p>{post.data.description}</p>
-    {post.data.image && <img class="cover" src={post.data.image} alt="" />}
-    <div class="prose"><Content /></div>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  editorial
+  activePage="blog"
+>
+  <article class="article-page">
+    <header class="article-header">
+      <p class="article-header__section">BLOG{category && <> / <span>{category}</span></>}</p>
+      <h1>{post.data.title}</h1>
+      <div class="article-header__meta">
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        <span>DISC / 01</span>
+      </div>
+    </header>
+
+    {image && (
+      <figure class="article-cover">
+        <img src={image} alt="" />
+      </figure>
+    )}
+
+    <div class="article-prose">
+      <Content />
+    </div>
+
+    <footer class="article-footer">
+      <a href={`${base}blog/`}>← Retour au blog</a>
+    </footer>
   </article>
 </BaseLayout>
