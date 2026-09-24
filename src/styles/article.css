@@ -56,11 +56,11 @@
 }
 
 .article-prose {
-  width: min(100%, 60.72rem);
+  width: min(100%, 54.8rem);
   margin-inline: auto;
   padding-block: 5rem 6rem;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.493rem;
+  font-size: 1.32rem;
   line-height: 1.7;
 }
 
