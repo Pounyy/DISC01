@@ -4,7 +4,7 @@ date: 2026-09-24
 description: Non je dec j'ai pas encore d'inspi mais clique
 tags:
   - CRITIQUE
-draft: true
+draft: false
 ---
 
 De prime abord, [The Blood of Dawnwalker](https://www.gameblog.fr/jeu-video/jeux/tests/test-the-blood-of-dawnwalker-pc-721943) nous place une lourde épée de Damoclès en nous chargeant de sauver la famille de Coen des griffes du seigneur vampire Brencis en [30 jours et 30 nuits](https://www.gameblog.fr/jeu-video/ed/astuces/the-blood-of-dawnwalker-guide-temps-722118). Mais le titre de Rebel Wolves nous laisse aussi une totale liberté dans notre façon de gérer notre temps, voire même d'ignorer complètement la quête principale de l'histoire, ou bien de choisir une issue radicalement différente. Cela culmine en 9 fins différentes, dont certaines bien cachées. On vous détaille donc tout cela dans ce guide complet. Fatalement, nous allons SPOILER massivement des éléments majeurs de l'intrigue. N'allez donc pas plus loin si vous comptez tout découvrir par vous-mêmes.
