@@ -17,15 +17,11 @@ const blog = defineCollection({
 const jeux = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/jeux' }),
   schema: z.object({
-    name: z.string(),
-    image: z.string().optional(),
-    description: z.string(),
-    developer: z.string(),
-    publisher: z.string(),
-    releaseDate: z.coerce.date(),
-    platforms: z.array(z.string()).default([]),
-    genres: z.array(z.string()).default([]),
-    personalRating: z.number().min(0).max(10).optional(),
+    title: z.string(),
+    image: z.string(),
+    link: z.url(),
+    platform: z.string(),
+    year: z.number().int().optional(),
   }),
 });
 

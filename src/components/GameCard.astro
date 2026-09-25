@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  image: string;
+  href: string;
+  platform: string;
+  year?: number;
+}
+
+const { title, image, href, platform, year } = Astro.props;
+---
+<article class="game-card">
+  <a class="game-card__link" href={href} target="_blank" rel="noopener noreferrer">
+    <div class="game-card__visual">
+      <img src={image} alt={`Illustration de ${title}`} width="640" height="480" loading="lazy" />
+    </div>
+    <div class="game-card__content">
+      <h2>{title}</h2>
+      <div class="game-card__footer">
+        <p>{platform}{year && <><span aria-hidden="true"> / </span>{year}</>}</p>
+        <span class="game-card__arrow" aria-hidden="true">↗</span>
+      </div>
+    </div>
+  </a>
+</article>

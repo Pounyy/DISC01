@@ -1,14 +1,9 @@
 ---
-name: test
-description: dsfsdfsdf
-developer: moi
-publisher: personne
-releaseDate: 2026-09-25
-platforms:
-  - Steam
-genres:
-  - Horreur
-personalRating: 8
+title: test
+image: /DISC01/media/games/test.svg
+link: https://store.steampowered.com/
+platform: Steam
+year: 2026
 ---
 
 attention les prouts magiques

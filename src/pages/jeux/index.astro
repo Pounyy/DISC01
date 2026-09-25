@@ -1,15 +1,51 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import EntryCard from '../../components/EntryCard.astro';
+import GameCard from '../../components/GameCard.astro';
+import '../../styles/home.css';
+import '../../styles/games.css';
 
-const games = (await getCollection('jeux')).sort((a, b) => a.data.name.localeCompare(b.data.name, 'fr'));
+const games = (await getCollection('jeux')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'fr'));
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+const withBase = (path: string) => path.startsWith(base) ? path : path.startsWith('/') ? `${base}${path.slice(1)}` : path;
 ---
-<BaseLayout title="Jeux">
-  <h1>Jeux</h1>
-  {games.length === 0 ? <p>Aucune fiche de jeu pour le moment.</p> :
-    <div class="grid">{games.map((game) =>
-      <EntryCard title={game.data.name} description={game.data.description} image={game.data.image} href={`${base}jeux/${game.id}/`} />
-    )}</div>}
+<BaseLayout
+  title="Jeux"
+  description="Une sélection personnelle de jeux aux identités fortes, entre rétro 3D, low-poly et étrangetés numériques."
+  editorial
+  activePage="jeux"
+>
+  <header class="games-heading">
+    <div class="games-heading__meta"><span>SÉLECTION / PERSONNELLE</span><span>DISC / 01</span></div>
+    <div class="games-heading__body">
+      <h1>JEUX<span>.</span></h1>
+      <p>Des mondes aux identités fortes, entre rétro 3D, low-poly et étrangetés numériques. Une sélection personnelle de jeux à découvrir.</p>
+    </div>
+  </header>
+
+  <section class="games-index" aria-labelledby="games-title">
+    <div class="games-index__heading">
+      <div><span aria-hidden="true"></span><h2 id="games-title">La sélection</h2></div>
+      <span>{String(games.length).padStart(2, '0')} / JEU{games.length > 1 ? 'X' : ''}</span>
+    </div>
+
+    {games.length === 0 ? (
+      <div class="games-empty">
+        <p>La sélection arrive bientôt.</p>
+        <span>ARCHIVES / EN PRÉPARATION</span>
+      </div>
+    ) : (
+      <div class="games-grid">
+        {games.map((game) => (
+          <GameCard
+            title={game.data.title}
+            image={withBase(game.data.image)}
+            href={game.data.link}
+            platform={game.data.platform}
+            year={game.data.year}
+          />
+        ))}
+      </div>
+    )}
+  </section>
 </BaseLayout>

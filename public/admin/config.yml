@@ -35,21 +35,16 @@ collections:
 
   - name: jeux
     label: Jeux
-    label_singular: Fiche de jeu
+    label_singular: Jeu
     folder: /src/content/jeux
     create: true
     slug: '{{fields._slug}}'
     extension: md
     format: frontmatter
-    identifier_field: name
+    identifier_field: title
     fields:
-      - { name: name, label: Nom du jeu, widget: string }
-      - { name: image, label: Image, widget: image, required: false }
-      - { name: description, label: Description, widget: text }
-      - { name: developer, label: Développeur, widget: string }
-      - { name: publisher, label: Éditeur, widget: string }
-      - { name: releaseDate, label: Date de sortie, widget: datetime, type: date }
-      - { name: platforms, label: Plateformes, widget: list, required: false }
-      - { name: genres, label: Genres, widget: list, required: false }
-      - { name: personalRating, label: Note personnelle sur 10, widget: number, value_type: float, min: 0, max: 10, required: false }
-      - { name: body, label: Contenu, widget: richtext }
+      - { name: title, label: Titre, widget: string }
+      - { name: image, label: Image, widget: image }
+      - { name: link, label: Lien externe, widget: string }
+      - { name: platform, label: Plateforme / boutique, widget: string }
+      - { name: year, label: Année, widget: number, value_type: int, min: 1970, required: false }

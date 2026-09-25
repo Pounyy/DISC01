@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title">
+  <title id="title">Paysage rétro 3D de démonstration</title>
+  <rect width="800" height="600" fill="#222725"/>
+  <path fill="#88948c" d="M0 438 186 246l119 112 99-105 177 185Z"/>
+  <path fill="#151917" d="m303 358 101-105 177 185H389Z"/>
+  <path fill="#c44d29" d="M0 473h800v127H0z"/>
+  <circle cx="630" cy="142" r="69" fill="#e8e2d5"/>
+  <path d="M80 175h505M80 199h410M80 223h305" stroke="#c44d29" stroke-width="8"/>
+  <path d="m642 73 28-45m14 72 47-25m-17 73h54" stroke="#e8e2d5" stroke-width="4"/>
+</svg>
