@@ -24,9 +24,15 @@ const withBase = (path: string) => path.startsWith(base) ? path : path.startsWit
   </header>
 
   <section class="games-index" aria-labelledby="games-title">
+    <nav class="games-filter" aria-label="Catégories de jeux">
+      <button class="is-active" type="button" data-category-filter="ps1" aria-pressed="true">Esthétique PS1</button>
+      <span aria-hidden="true">/</span>
+      <button type="button" data-category-filter="favorite" aria-pressed="false">Coups de cœur</button>
+    </nav>
+
     <div class="games-index__heading">
       <div><span aria-hidden="true"></span><h2 id="games-title">La sélection</h2></div>
-      <span>{String(games.length).padStart(2, '0')} / JEU{games.length > 1 ? 'X' : ''}</span>
+      <span data-games-count>{String(games.filter((game) => game.data.category === 'ps1').length).padStart(2, '0')} / JEU{games.filter((game) => game.data.category === 'ps1').length > 1 ? 'X' : ''}</span>
     </div>
 
     {games.length === 0 ? (
@@ -43,9 +49,43 @@ const withBase = (path: string) => path.startsWith(base) ? path : path.startsWit
             href={game.data.link}
             platform={game.data.platform}
             year={game.data.year}
+            category={game.data.category}
           />
         ))}
       </div>
+      <p class="games-filter-empty" data-filter-empty hidden>Aucun jeu dans cette catégorie pour le moment.</p>
     )}
   </section>
+
+  <script>
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-category-filter]');
+    const gameCards = document.querySelectorAll<HTMLElement>('[data-game-card]');
+    const count = document.querySelector<HTMLElement>('[data-games-count]');
+    const empty = document.querySelector<HTMLElement>('[data-filter-empty]');
+
+    const filterGames = (category: string) => {
+      let visibleGames = 0;
+
+      gameCards.forEach((card) => {
+        const isVisible = card.dataset.category === category;
+        card.hidden = !isVisible;
+        if (isVisible) visibleGames += 1;
+      });
+
+      filterButtons.forEach((button) => {
+        const isActive = button.dataset.categoryFilter === category;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+
+      if (count) count.textContent = `${String(visibleGames).padStart(2, '0')} / JEU${visibleGames > 1 ? 'X' : ''}`;
+      if (empty) empty.hidden = visibleGames !== 0;
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => filterGames(button.dataset.categoryFilter ?? 'ps1'));
+    });
+
+    filterGames('ps1');
+  </script>
 </BaseLayout>

@@ -48,3 +48,10 @@ collections:
       - { name: link, label: Lien externe, widget: string }
       - { name: platform, label: Plateforme / boutique, widget: string }
       - { name: year, label: Année, widget: number, value_type: int, min: 1970, required: false }
+      - name: category
+        label: Catégorie
+        widget: select
+        default: ps1
+        options:
+          - { label: Esthétique PS1, value: ps1 }
+          - { label: Coup de cœur, value: favorite }

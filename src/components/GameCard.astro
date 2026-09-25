@@ -5,11 +5,12 @@ interface Props {
   href: string;
   platform: string;
   year?: number;
+  category: 'ps1' | 'favorite';
 }
 
-const { title, image, href, platform, year } = Astro.props;
+const { title, image, href, platform, year, category } = Astro.props;
 ---
-<article class="game-card">
+<article class="game-card" data-game-card data-category={category}>
   <a class="game-card__link" href={href} target="_blank" rel="noopener noreferrer">
     <div class="game-card__visual">
       <img src={image} alt={`Illustration de ${title}`} width="640" height="480" loading="lazy" />

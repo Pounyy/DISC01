@@ -22,6 +22,7 @@ const jeux = defineCollection({
     link: z.url(),
     platform: z.string(),
     year: z.number().int().optional(),
+    category: z.enum(['ps1', 'favorite']),
   }),
 });
 

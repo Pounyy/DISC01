@@ -5,6 +5,7 @@
 
 .games-heading__meta,
 .games-index__heading,
+.games-filter,
 .game-card__footer,
 .games-empty > span {
   font-family: 'Courier New', Courier, monospace;
@@ -51,6 +52,53 @@
 }
 
 .games-index { padding-top: 3rem; }
+
+.games-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  margin-bottom: 2.5rem;
+}
+
+.games-filter > span { color: #797c75; }
+
+.games-filter button {
+  position: relative;
+  border: 0;
+  padding: .3rem 0;
+  background: transparent;
+  color: #575b54;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color .16s ease;
+}
+
+.games-filter button::after {
+  content: '';
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: right .16s ease;
+}
+
+.games-filter button:hover,
+.games-filter button:focus-visible,
+.games-filter button.is-active { color: var(--accent); }
+
+.games-filter button:hover::after,
+.games-filter button:focus-visible::after,
+.games-filter button.is-active::after { right: 0; }
+
+.games-filter button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
 
 .games-index__heading {
   align-items: end;
@@ -169,6 +217,15 @@
   outline-offset: 4px;
 }
 
+.games-filter-empty {
+  border-block: 1px solid var(--ink);
+  margin: 0;
+  padding-block: 3rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 .games-empty {
   display: flex;
   justify-content: space-between;
@@ -206,12 +263,15 @@
   .games-index__heading { font-size: .7rem; }
   .games-index__heading > span { display: none; }
   .games-grid { grid-template-columns: 1fr; }
+  .games-filter { gap: .55rem; font-size: .67rem; }
 
   .games-empty { display: block; }
   .games-empty > span { display: block; margin-top: 1.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .games-filter button,
+  .games-filter button::after,
   .game-card,
   .game-card__visual img,
   .game-card__arrow { transition: none; }
